@@ -1,0 +1,195 @@
+units:
+  # default unit is mm
+
+  # Proxy Spacing Variables
+  # Kailh Choc keys are 18mm wide and 17mm tall
+  kx: cx
+  ky: cy
+  $default_width: cx
+  $default_height: cy
+
+  # Cherry MX keys are 19mm x 19mm
+  #kx: u
+  #ky: u
+
+  # Padding Variables
+  px: kx + 4
+  py: ky + 4
+
+points:
+  zones:
+    matrix:
+      # Fix placement on KiCAD sheet.
+      anchor:
+        shift: [100, -100]
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        pinky.key:
+          column_net: P18
+        ring.key:
+          stagger: 12.5
+          column_net: P15
+        middle.key:
+          stagger: 5
+          column_net: P14
+        index.key:
+          stagger: -5
+          column_net: P16
+        inner.key:
+          stagger: -3
+          column_net: P10
+        inner2:
+          rows:
+            top.skip: true
+            num.skip: true
+          key:
+            column_net: P9
+      rows:
+        bottom.row_net: P4
+        home.row_net: P5
+        top.row_net: P6
+        num.row_net: P7
+    thumbs:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-1kx, -1ky]
+      columns:
+        outer2.key:
+          column_net: P14
+        outer.key:
+          column_net: P16
+        home.key:
+            splay: -15
+            shift: [3, -2]
+            column_net: P10
+        inner.key:
+            splay: -15
+            shift: [6, -3]
+            column_net: P9
+      rows.cluster.row_net: P8
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 3
+      points:
+        # Top left
+        - ref: matrix_pinky_num
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_ring_num
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_middle_num
+          shift: [-0.5px, 0.5py]
+
+        # Top Right
+        - ref: matrix_middle_num
+          shift: [0.5px, 0.5py]
+        - ref: matrix_inner2_home
+          shift: [0.65px, 2.2py]
+        - ref: matrix_inner2_home
+          shift: [0.65px, 0.5py]
+
+        # Thumbs
+        - ref: thumbs_inner_cluster
+          shift: [0.5px, 0.5py]
+        - ref: thumbs_inner_cluster
+          shift: [0.5px, -0.5py]
+        - ref: thumbs_outer2_cluster
+          shift: [-0.5px, -0.5py]
+
+        # Bottom Left
+        - ref: matrix_pinky_bottom
+          shift: [-0.5px, -0.5py]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5]
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+
+pcbs:
+  sweeppp:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: true
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      # do I need diodes for the reverse?
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      # how close can I put this?
+      # how much should the plug poke out?
+      promicro:
+        what: promicro
+        params:
+          orientation: "up"
+        where:
+          ref: matrix_inner_top
+          shift: [20,11]
+          rotate: -90
+      # do i want this???
+      oled:
+        what: oled
+        params:
+          side: "F"
+          SDA: P2
+          SCL: P3
+        where:
+          ref: matrix_inner_top
+          shift: [14,-8]
+          rotate: 90
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref: matrix_inner2_bottom
+          shift: [15, 10]
+          rotate: -90
+      # what orientation should this be in?
+      powerswitch:
+        what: slider
+        where:
+          ref: matrix_inner2_bottom
+          shift: [15, 0]
+        params:
+          from: RAW
+          to: BAT
+      # where should this go?
+      jstph:
+        what: jstph
+        where:
+          ref: matrix_inner_top
+          shift: [20, 20]
+          rotate: 180
+        params:
+          pos: BAT
+          neg: GND
