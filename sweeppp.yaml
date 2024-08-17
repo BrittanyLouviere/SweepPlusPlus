@@ -135,7 +135,6 @@ pcbs:
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
-      # do I need diodes for the reverse?
       diode:
         what: diode
         where: true
@@ -144,9 +143,7 @@ pcbs:
           to: "{{row_net}}"
         adjust:
           shift: [0, -5]
-      # how close can I put this?
-      # how much should the plug poke out?
-      promicro:
+      promicro: # TODO change to nice!nano
         what: promicro
         params:
           orientation: "up"
@@ -154,8 +151,7 @@ pcbs:
           ref: matrix_inner_top
           shift: [20,11]
           rotate: -90
-      # do i want this???
-      oled:
+      oled:     # TODO change to nice!view
         what: oled
         params:
           side: "F"
@@ -165,7 +161,7 @@ pcbs:
           ref: matrix_inner_top
           shift: [14,-8]
           rotate: 90
-      reset:
+      reset:    # TODO move to a better spot
         what: button
         params:
           from: GND
@@ -174,8 +170,7 @@ pcbs:
           ref: matrix_inner2_bottom
           shift: [15, 10]
           rotate: -90
-      # what orientation should this be in?
-      powerswitch:
+      powerSwitch:  # TODO move to a better spot
         what: slider
         where:
           ref: matrix_inner2_bottom
@@ -183,8 +178,7 @@ pcbs:
         params:
           from: RAW
           to: BAT
-      # where should this go?
-      jstph:
+      jstph:        # TODO where should this go?
         what: jstph
         where:
           ref: matrix_inner_top
