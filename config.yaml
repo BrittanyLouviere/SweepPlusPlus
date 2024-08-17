@@ -143,23 +143,24 @@ pcbs:
           to: "{{row_net}}"
         adjust:
           shift: [0, -5]
-      promicro: # TODO change to nice!nano
-        what: promicro
+      nice_nano:
+        what: nice_nano
         params:
           orientation: "up"
         where:
           ref: matrix_inner_top
           shift: [20,11]
           rotate: -90
-      oled:     # TODO change to nice!view
-        what: oled
+      nice_view:
+        what: nice_view
         params:
           side: "F"
-          SDA: P2
-          SCL: P3
+          SDA: "P2" # TODO fix
+          SCL: "P3" # TODO fix
+          CS: ""    # TODO fix
         where:
           ref: matrix_inner_top
-          shift: [14,-8]
+          shift: [20,-7]
           rotate: 90
       reset:    # TODO move to a better spot
         what: button
