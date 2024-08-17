@@ -149,7 +149,7 @@ pcbs:
           orientation: "up"
         where:
           ref: matrix_inner_top
-          shift: [20,11]
+          shift: [19,10]
           rotate: -90
       nice_view:
         what: nice_view
@@ -160,7 +160,7 @@ pcbs:
           CS: ""    # TODO fix
         where:
           ref: matrix_inner_top
-          shift: [20,-7]
+          shift: [19,-8]
           rotate: 90
       reset:    # TODO move to a better spot
         what: button
