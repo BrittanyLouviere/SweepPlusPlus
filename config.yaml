@@ -120,7 +120,7 @@ outlines:
     - operation: subtract
       name: keys
 
-pcbs:
+pcbs: # TODO add keycap outlines?
   sweeppp:
     outlines:
       main:
@@ -146,7 +146,7 @@ pcbs:
       nice_nano:
         what: nice_nano
         params:
-          orientation: "up"
+          orientation: up
         where:
           ref: matrix_inner_top
           shift: [19,10]
@@ -154,10 +154,10 @@ pcbs:
       nice_view:
         what: nice_view
         params:
-          side: "F"
-          SDA: "P2" # TODO fix
-          SCL: "P3" # TODO fix
-          CS: ""    # TODO fix
+          side: F
+          SDA: P017       # can be on any high frequency pin
+          SCL: P020       # can be on any high frequency pin
+          CS: P002
         where:
           ref: matrix_inner_top
           shift: [19,-8]
@@ -180,6 +180,7 @@ pcbs:
         params:
           from: RAW
           to: BAT
+      # TODO which orientation should this be in?
       jstph:  # this may not be needed
         what: jstph
         where:
