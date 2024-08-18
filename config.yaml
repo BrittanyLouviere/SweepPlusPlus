@@ -189,3 +189,24 @@ pcbs:
         params:
           pos: BAT
           neg: GND
+      # Mounting Holes
+      holeTopLeft:
+        what: mountinghole
+        where:
+          ref: matrix_pinky_num
+          shift: [0, 12]
+      holeBottomLeft:
+        what: mountinghole
+        where:
+          ref: matrix_pinky_bottom
+          shift: [12, -9]
+      holeTopRight:
+        what: mountinghole
+        where:
+          ref: matrix_inner_num
+          shift: [7, 11]
+      holeBottomRight:
+        what: mountinghole
+        where:
+          ref: matrix_inner2_bottom
+          shift: [16, -12]
