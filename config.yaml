@@ -95,9 +95,9 @@ outlines:
         - ref: matrix_middle_num
           shift: [0.5px, 0.5py]
         - ref: matrix_inner2_home
-          shift: [0.65px, 2.2py]
+          shift: [0.5px, 2.2py]
         - ref: matrix_inner2_home
-          shift: [0.65px, 0.5py]
+          shift: [0.5px, 0.5py]
 
         # Thumbs
         - ref: thumbs_inner_cluster
@@ -162,24 +162,25 @@ pcbs:
           ref: matrix_inner_top
           shift: [19,-8]
           rotate: 90
-      reset:    # TODO move to a better spot
+      reset:
         what: button
         params:
           from: GND
           to: RST
         where:
-          ref: matrix_inner2_bottom
-          shift: [15, 10]
-          rotate: -90
-      powerSwitch:  # TODO move to a better spot
+          ref: matrix_inner_num
+          shift: [0, 12]
+          rotate: -6.7
+      powerSwitch:
         what: slider
         where:
-          ref: matrix_inner2_bottom
-          shift: [15, 0]
+          ref: matrix_index_num
+          shift: [0, 12]
+          rotate: -6.7
         params:
           from: RAW
           to: BAT
-      jstph:        # TODO where should this go?
+      jstph:        # TODO where should this go? This is the battery connector
         what: jstph
         where:
           ref: matrix_inner_top
