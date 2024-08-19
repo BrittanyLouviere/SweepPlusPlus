@@ -196,70 +196,70 @@ function board_extrude_4_outline_fn(){
             
             
 
-                function case_case_fn() {
+                function caseBottom_case_fn() {
                     
 
-                // creating part 0 of case case
-                let case__part_0 = _standoffs_case_fn();
+                // creating part 0 of case caseBottom
+                let caseBottom__part_0 = _standoffs_case_fn();
 
                 // make sure that rotations are relative
-                let case__part_0_bounds = case__part_0.getBounds();
-                let case__part_0_x = case__part_0_bounds[0].x + (case__part_0_bounds[1].x - case__part_0_bounds[0].x) / 2
-                let case__part_0_y = case__part_0_bounds[0].y + (case__part_0_bounds[1].y - case__part_0_bounds[0].y) / 2
-                case__part_0 = translate([-case__part_0_x, -case__part_0_y, 0], case__part_0);
-                case__part_0 = rotate([0,0,0], case__part_0);
-                case__part_0 = translate([case__part_0_x, case__part_0_y, 0], case__part_0);
+                let caseBottom__part_0_bounds = caseBottom__part_0.getBounds();
+                let caseBottom__part_0_x = caseBottom__part_0_bounds[0].x + (caseBottom__part_0_bounds[1].x - caseBottom__part_0_bounds[0].x) / 2
+                let caseBottom__part_0_y = caseBottom__part_0_bounds[0].y + (caseBottom__part_0_bounds[1].y - caseBottom__part_0_bounds[0].y) / 2
+                caseBottom__part_0 = translate([-caseBottom__part_0_x, -caseBottom__part_0_y, 0], caseBottom__part_0);
+                caseBottom__part_0 = rotate([0,0,0], caseBottom__part_0);
+                caseBottom__part_0 = translate([caseBottom__part_0_x, caseBottom__part_0_y, 0], caseBottom__part_0);
 
-                case__part_0 = translate([0,0,0], case__part_0);
-                let result = case__part_0;
+                caseBottom__part_0 = translate([0,0,0], caseBottom__part_0);
+                let result = caseBottom__part_0;
                 
             
 
-                // creating part 1 of case case
-                let case__part_1 = _holes_case_fn();
+                // creating part 1 of case caseBottom
+                let caseBottom__part_1 = _holes_case_fn();
 
                 // make sure that rotations are relative
-                let case__part_1_bounds = case__part_1.getBounds();
-                let case__part_1_x = case__part_1_bounds[0].x + (case__part_1_bounds[1].x - case__part_1_bounds[0].x) / 2
-                let case__part_1_y = case__part_1_bounds[0].y + (case__part_1_bounds[1].y - case__part_1_bounds[0].y) / 2
-                case__part_1 = translate([-case__part_1_x, -case__part_1_y, 0], case__part_1);
-                case__part_1 = rotate([0,0,0], case__part_1);
-                case__part_1 = translate([case__part_1_x, case__part_1_y, 0], case__part_1);
+                let caseBottom__part_1_bounds = caseBottom__part_1.getBounds();
+                let caseBottom__part_1_x = caseBottom__part_1_bounds[0].x + (caseBottom__part_1_bounds[1].x - caseBottom__part_1_bounds[0].x) / 2
+                let caseBottom__part_1_y = caseBottom__part_1_bounds[0].y + (caseBottom__part_1_bounds[1].y - caseBottom__part_1_bounds[0].y) / 2
+                caseBottom__part_1 = translate([-caseBottom__part_1_x, -caseBottom__part_1_y, 0], caseBottom__part_1);
+                caseBottom__part_1 = rotate([0,0,0], caseBottom__part_1);
+                caseBottom__part_1 = translate([caseBottom__part_1_x, caseBottom__part_1_y, 0], caseBottom__part_1);
 
-                case__part_1 = translate([0,0,0], case__part_1);
-                result = result.subtract(case__part_1);
+                caseBottom__part_1 = translate([0,0,0], caseBottom__part_1);
+                result = result.subtract(caseBottom__part_1);
                 
             
 
-                // creating part 2 of case case
-                let case__part_2 = _xlBottom_case_fn();
+                // creating part 2 of case caseBottom
+                let caseBottom__part_2 = _xlBottom_case_fn();
 
                 // make sure that rotations are relative
-                let case__part_2_bounds = case__part_2.getBounds();
-                let case__part_2_x = case__part_2_bounds[0].x + (case__part_2_bounds[1].x - case__part_2_bounds[0].x) / 2
-                let case__part_2_y = case__part_2_bounds[0].y + (case__part_2_bounds[1].y - case__part_2_bounds[0].y) / 2
-                case__part_2 = translate([-case__part_2_x, -case__part_2_y, 0], case__part_2);
-                case__part_2 = rotate([0,0,0], case__part_2);
-                case__part_2 = translate([case__part_2_x, case__part_2_y, 0], case__part_2);
+                let caseBottom__part_2_bounds = caseBottom__part_2.getBounds();
+                let caseBottom__part_2_x = caseBottom__part_2_bounds[0].x + (caseBottom__part_2_bounds[1].x - caseBottom__part_2_bounds[0].x) / 2
+                let caseBottom__part_2_y = caseBottom__part_2_bounds[0].y + (caseBottom__part_2_bounds[1].y - caseBottom__part_2_bounds[0].y) / 2
+                caseBottom__part_2 = translate([-caseBottom__part_2_x, -caseBottom__part_2_y, 0], caseBottom__part_2);
+                caseBottom__part_2 = rotate([0,0,0], caseBottom__part_2);
+                caseBottom__part_2 = translate([caseBottom__part_2_x, caseBottom__part_2_y, 0], caseBottom__part_2);
 
-                case__part_2 = translate([0,0,0], case__part_2);
-                result = result.union(case__part_2);
+                caseBottom__part_2 = translate([0,0,0], caseBottom__part_2);
+                result = result.union(caseBottom__part_2);
                 
             
 
-                // creating part 3 of case case
-                let case__part_3 = _wall_case_fn();
+                // creating part 3 of case caseBottom
+                let caseBottom__part_3 = _wall_case_fn();
 
                 // make sure that rotations are relative
-                let case__part_3_bounds = case__part_3.getBounds();
-                let case__part_3_x = case__part_3_bounds[0].x + (case__part_3_bounds[1].x - case__part_3_bounds[0].x) / 2
-                let case__part_3_y = case__part_3_bounds[0].y + (case__part_3_bounds[1].y - case__part_3_bounds[0].y) / 2
-                case__part_3 = translate([-case__part_3_x, -case__part_3_y, 0], case__part_3);
-                case__part_3 = rotate([0,0,0], case__part_3);
-                case__part_3 = translate([case__part_3_x, case__part_3_y, 0], case__part_3);
+                let caseBottom__part_3_bounds = caseBottom__part_3.getBounds();
+                let caseBottom__part_3_x = caseBottom__part_3_bounds[0].x + (caseBottom__part_3_bounds[1].x - caseBottom__part_3_bounds[0].x) / 2
+                let caseBottom__part_3_y = caseBottom__part_3_bounds[0].y + (caseBottom__part_3_bounds[1].y - caseBottom__part_3_bounds[0].y) / 2
+                caseBottom__part_3 = translate([-caseBottom__part_3_x, -caseBottom__part_3_y, 0], caseBottom__part_3);
+                caseBottom__part_3 = rotate([0,0,0], caseBottom__part_3);
+                caseBottom__part_3 = translate([caseBottom__part_3_x, caseBottom__part_3_y, 0], caseBottom__part_3);
 
-                case__part_3 = translate([0,0,0], case__part_3);
-                result = result.union(case__part_3);
+                caseBottom__part_3 = translate([0,0,0], caseBottom__part_3);
+                result = result.union(caseBottom__part_3);
                 
             
                     return result;
@@ -268,7 +268,7 @@ function board_extrude_4_outline_fn(){
             
         
             function main() {
-                return case_case_fn();
+                return caseBottom_case_fn();
             }
 
         

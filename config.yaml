@@ -156,6 +156,15 @@ outlines:
     - name: mounting
       operation: stack
       expand: 1.66
+  switches:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [15,15]
+  switchCutout:
+    - name: board
+    - operation: subtract
+      name: switches
 
 pcbs: # TODO add keycap outlines?
   sweeppp:
@@ -288,3 +297,8 @@ cases:
     - what: case
       name: _wall
       operation: add
+  # TODO add cutout for mcu
+  # TODO add holes for mounts
+  caseTop:
+    - name: switchCutout
+      extrude: 1
