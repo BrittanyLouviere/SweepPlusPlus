@@ -1,6 +1,7 @@
 # run below command to process everything
-# ergogen . && for i in output/cases/*.jscad; do npx @jscad/cli@1 "$i" -of stla; done
-# npx @jscad/cli@1 output/cases/bottom.jscad -of stla
+# ergogen .
+# npx @jscad/cli@1 output/cases/case.jscad -of stla
+# ergogen . && for i in output/cases/*.jscad; do echo "$i"; npx @jscad/cli@1 "$i" -of stla; done
 
 units:
   # default unit is mm
@@ -19,6 +20,9 @@ units:
   # Padding Variables
   px: kx + 4
   py: ky + 4
+
+  # Defaults to M2 screws
+  screwSize: 1.5
 
 points:
   zones:
@@ -127,6 +131,31 @@ outlines:
     - name: board
     - operation: subtract
       name: keys
+  mounting:
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_pinky_num
+        shift: [0, 12]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_pinky_bottom
+        shift: [12, -9]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_inner_num
+        shift: [7, 11]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_inner2_bottom
+        shift: [16, -12]
+  standoff:
+    - name: mounting
+      operation: stack
+      expand: 1.66
 
 pcbs: # TODO add keycap outlines?
   sweeppp:
@@ -240,7 +269,19 @@ cases:
     - what: case
       name: _innerWall
       operation: subtract
-  case:
+  _holes:
+    - name: mounting
+      extrude: 4
+  _standoffs:
+    - name: standoff
+      extrude: 4
+  caseBottom:
+    - what: case
+      name: _standoffs
+      operation: add
+    - what: case
+      name: _holes
+      operation: subtract
     - what: case
       name: _xlBottom
       operation: add

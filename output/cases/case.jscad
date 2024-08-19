@@ -1,3 +1,27 @@
+function standoff_extrude_4_outline_fn(){
+    return CAG.circle({"center":[206,-102.5],"radius":3.16})
+.union(
+    CAG.circle({"center":[179,-28.5],"radius":3.16})
+).union(
+    CAG.circle({"center":[112,-109],"radius":3.16})
+).union(
+    CAG.circle({"center":[100,-37],"radius":3.16})
+).extrude({ offset: [0, 0, 4] });
+}
+
+
+function mounting_extrude_4_outline_fn(){
+    return CAG.circle({"center":[206,-102.5],"radius":1.5})
+.union(
+    CAG.circle({"center":[179,-28.5],"radius":1.5})
+).union(
+    CAG.circle({"center":[112,-109],"radius":1.5})
+).union(
+    CAG.circle({"center":[100,-37],"radius":1.5})
+).extrude({ offset: [0, 0, 4] });
+}
+
+
 function xlBoard_extrude_1_outline_fn(){
     return new CSG.Path2D([[87,-107.8878697],[87,-40.0691011]]).appendArc([89.1480211,-35.9622512],{"radius":5,"clockwise":true,"large":false}).appendPoint([105.4412471,-24.6475109]).appendArc([106.9550066,-23.9367713],{"radius":5,"clockwise":true,"large":false}).appendPoint([124.0707055,-19.1824105]).appendArc([125.4089249,-19],{"radius":5,"clockwise":true,"large":false}).appendPoint([146.8255916,-19]).appendArc([147.4049951,-19.0336843],{"radius":5,"clockwise":true,"large":false}).appendPoint([198.5794035,-25.004032]).appendArc([203,-29.9703476],{"radius":5,"clockwise":true,"large":false}).appendPoint([203,-62.3097675]).appendArc([203.1005487,-62.7467885],{"radius":1,"clockwise":false,"large":false}).appendPoint([226.9621569,-111.8573677]).appendArc([226.7950274,-116.5424728],{"radius":5,"clockwise":true,"large":false}).appendPoint([218.165383,-131.4894553]).appendArc([212.8626105,-133.893939],{"radius":5,"clockwise":true,"large":false}).appendPoint([142.6959669,-119.9786555]).appendArc([142.6390063,-119.9690599],{"radius":1,"clockwise":false,"large":false}).appendPoint([91.3121581,-112.840331]).appendArc([87,-107.8878697],{"radius":5,"clockwise":true,"large":false}).close().innerToCAG()
 .extrude({ offset: [0, 0, 1] });
@@ -17,6 +41,52 @@ function board_extrude_4_outline_fn(){
 
 
 
+
+                function _standoffs_case_fn() {
+                    
+
+                // creating part 0 of case _standoffs
+                let _standoffs__part_0 = standoff_extrude_4_outline_fn();
+
+                // make sure that rotations are relative
+                let _standoffs__part_0_bounds = _standoffs__part_0.getBounds();
+                let _standoffs__part_0_x = _standoffs__part_0_bounds[0].x + (_standoffs__part_0_bounds[1].x - _standoffs__part_0_bounds[0].x) / 2
+                let _standoffs__part_0_y = _standoffs__part_0_bounds[0].y + (_standoffs__part_0_bounds[1].y - _standoffs__part_0_bounds[0].y) / 2
+                _standoffs__part_0 = translate([-_standoffs__part_0_x, -_standoffs__part_0_y, 0], _standoffs__part_0);
+                _standoffs__part_0 = rotate([0,0,0], _standoffs__part_0);
+                _standoffs__part_0 = translate([_standoffs__part_0_x, _standoffs__part_0_y, 0], _standoffs__part_0);
+
+                _standoffs__part_0 = translate([0,0,0], _standoffs__part_0);
+                let result = _standoffs__part_0;
+                
+            
+                    return result;
+                }
+            
+            
+
+                function _holes_case_fn() {
+                    
+
+                // creating part 0 of case _holes
+                let _holes__part_0 = mounting_extrude_4_outline_fn();
+
+                // make sure that rotations are relative
+                let _holes__part_0_bounds = _holes__part_0.getBounds();
+                let _holes__part_0_x = _holes__part_0_bounds[0].x + (_holes__part_0_bounds[1].x - _holes__part_0_bounds[0].x) / 2
+                let _holes__part_0_y = _holes__part_0_bounds[0].y + (_holes__part_0_bounds[1].y - _holes__part_0_bounds[0].y) / 2
+                _holes__part_0 = translate([-_holes__part_0_x, -_holes__part_0_y, 0], _holes__part_0);
+                _holes__part_0 = rotate([0,0,0], _holes__part_0);
+                _holes__part_0 = translate([_holes__part_0_x, _holes__part_0_y, 0], _holes__part_0);
+
+                _holes__part_0 = translate([0,0,0], _holes__part_0);
+                let result = _holes__part_0;
+                
+            
+                    return result;
+                }
+            
+            
 
                 function _xlBottom_case_fn() {
                     
@@ -130,7 +200,7 @@ function board_extrude_4_outline_fn(){
                     
 
                 // creating part 0 of case case
-                let case__part_0 = _xlBottom_case_fn();
+                let case__part_0 = _standoffs_case_fn();
 
                 // make sure that rotations are relative
                 let case__part_0_bounds = case__part_0.getBounds();
@@ -146,7 +216,7 @@ function board_extrude_4_outline_fn(){
             
 
                 // creating part 1 of case case
-                let case__part_1 = _wall_case_fn();
+                let case__part_1 = _holes_case_fn();
 
                 // make sure that rotations are relative
                 let case__part_1_bounds = case__part_1.getBounds();
@@ -157,7 +227,39 @@ function board_extrude_4_outline_fn(){
                 case__part_1 = translate([case__part_1_x, case__part_1_y, 0], case__part_1);
 
                 case__part_1 = translate([0,0,0], case__part_1);
-                result = result.union(case__part_1);
+                result = result.subtract(case__part_1);
+                
+            
+
+                // creating part 2 of case case
+                let case__part_2 = _xlBottom_case_fn();
+
+                // make sure that rotations are relative
+                let case__part_2_bounds = case__part_2.getBounds();
+                let case__part_2_x = case__part_2_bounds[0].x + (case__part_2_bounds[1].x - case__part_2_bounds[0].x) / 2
+                let case__part_2_y = case__part_2_bounds[0].y + (case__part_2_bounds[1].y - case__part_2_bounds[0].y) / 2
+                case__part_2 = translate([-case__part_2_x, -case__part_2_y, 0], case__part_2);
+                case__part_2 = rotate([0,0,0], case__part_2);
+                case__part_2 = translate([case__part_2_x, case__part_2_y, 0], case__part_2);
+
+                case__part_2 = translate([0,0,0], case__part_2);
+                result = result.union(case__part_2);
+                
+            
+
+                // creating part 3 of case case
+                let case__part_3 = _wall_case_fn();
+
+                // make sure that rotations are relative
+                let case__part_3_bounds = case__part_3.getBounds();
+                let case__part_3_x = case__part_3_bounds[0].x + (case__part_3_bounds[1].x - case__part_3_bounds[0].x) / 2
+                let case__part_3_y = case__part_3_bounds[0].y + (case__part_3_bounds[1].y - case__part_3_bounds[0].y) / 2
+                case__part_3 = translate([-case__part_3_x, -case__part_3_y, 0], case__part_3);
+                case__part_3 = rotate([0,0,0], case__part_3);
+                case__part_3 = translate([case__part_3_x, case__part_3_y, 0], case__part_3);
+
+                case__part_3 = translate([0,0,0], case__part_3);
+                result = result.union(case__part_3);
                 
             
                     return result;
