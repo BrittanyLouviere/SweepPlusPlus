@@ -1,3 +1,7 @@
+# run below command to process everything
+# ergogen . && for i in output/cases/*.jscad; do npx @jscad/cli@1 "$i" -of stla; done
+# npx @jscad/cli@1 output/cases/bottom.jscad -of stla
+
 units:
   # default unit is mm
 
@@ -110,6 +114,10 @@ outlines:
         # Bottom Left
         - ref: matrix_pinky_bottom
           shift: [-0.5px, -0.5py]
+  xlBoard:
+    - name: board
+      operation: stack
+      expand: 2
   keys:
     - what: rectangle
       where: true
@@ -211,3 +219,31 @@ pcbs: # TODO add keycap outlines?
         where:
           ref: matrix_inner2_bottom
           shift: [16, -12]
+
+cases:
+  _bottom:
+    - name: board
+      extrude: 1
+  _xlBottom:
+    - name: xlBoard
+      extrude: 1
+  _outerWall:
+    - name: xlBoard
+      extrude: 4
+  _innerWall:
+    - name: board
+      extrude: 4
+  _wall:
+    - what: case
+      name: _outerWall
+      operation: add
+    - what: case
+      name: _innerWall
+      operation: subtract
+  case:
+    - what: case
+      name: _xlBottom
+      operation: add
+    - what: case
+      name: _wall
+      operation: add
