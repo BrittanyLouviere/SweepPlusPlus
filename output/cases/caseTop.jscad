@@ -61,7 +61,7 @@ function topCutout_extrude_1_outline_fn(){
 ).union(
     new CSG.Path2D([[201.657242,-120.2823943],[213.6083926,-127.1823943]]).appendPoint([220.5083926,-115.2312437]).appendPoint([208.557242,-108.3312437]).appendPoint([201.657242,-120.2823943]).close().innerToCAG()
 ).union(
-    new CSG.Path2D([[182,-63.5],[200,-63.5]]).appendPoint([200,-29.5]).appendPoint([182,-29.5]).appendPoint([182,-63.5]).close().innerToCAG()
+    new CSG.Path2D([[184,-64.5],[198,-64.5]]).appendPoint([198,-28.5]).appendPoint([184,-28.5]).appendPoint([184,-64.5]).close().innerToCAG()
 )).extrude({ offset: [0, 0, 1] });
 }
 

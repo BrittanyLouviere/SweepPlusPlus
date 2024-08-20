@@ -133,6 +133,12 @@ outlines:
           ref: matrix_inner_top
           shift: [19, 10]
       size: [18, 34]
+  screen:
+    - what: rectangle
+      where:
+          ref: matrix_inner_top
+          shift: [19,10]
+      size: [14, 36]
   combo:
     - name: board
     - operation: subtract
@@ -174,7 +180,7 @@ outlines:
     - operation: subtract
       name: mounting
     - operation: subtract
-      name: mcu
+      name: screen
 
 pcbs: # TODO add keycap outlines?
   sweeppp:
