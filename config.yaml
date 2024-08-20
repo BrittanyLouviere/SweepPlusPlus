@@ -127,6 +127,12 @@ outlines:
       where: true
       bound: false
       size: [kx-0.5,ky-0.5]
+  mcu:
+    - what: rectangle
+      where:
+          ref: matrix_inner_top
+          shift: [19, 10]
+      size: [18, 34]
   combo:
     - name: board
     - operation: subtract
@@ -161,10 +167,14 @@ outlines:
       where: true
       bound: false
       size: [15,15]
-  switchCutout:
+  topCutout:
     - name: board
     - operation: subtract
       name: switches
+    - operation: subtract
+      name: mounting
+    - operation: subtract
+      name: mcu
 
 pcbs: # TODO add keycap outlines?
   sweeppp:
@@ -297,8 +307,7 @@ cases:
     - what: case
       name: _wall
       operation: add
-  # TODO add cutout for mcu
-  # TODO add holes for mounts
+  # TODO can I cover the mcu but show the screen?
   caseTop:
-    - name: switchCutout
+    - name: topCutout
       extrude: 1
