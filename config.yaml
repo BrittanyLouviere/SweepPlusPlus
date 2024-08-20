@@ -166,7 +166,7 @@ outlines:
     - what: rectangle
       where: true
       bound: false
-      size: [15,15]
+      size: [13.8, 13.8]
   topCutout:
     - name: board
     - operation: subtract
