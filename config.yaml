@@ -54,6 +54,7 @@ points:
             num.skip: true
           key:
             column_net: P106
+            spread: 1kx + 1
       rows:
         bottom.row_net: P022
         home.row_net: P024
