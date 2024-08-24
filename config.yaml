@@ -28,8 +28,7 @@ points:
   zones:
     matrix:
       # Fix placement on KiCAD sheet.
-      anchor:
-        shift: [100, -100]
+      anchor.shift: [100, -100]
       key:
         padding: 1ky
         spread: 1kx
@@ -73,13 +72,13 @@ points:
         outer.key:
           column_net: P010
         home.key:
-            splay: -15
-            shift: [3, -2]
-            column_net: P009
+          splay: -15
+          shift: [3, -2]
+          column_net: P009
         inner.key:
-            splay: -15
-            shift: [6, -3]
-            column_net: P106
+          splay: -15
+          shift: [6, -3]
+          column_net: P106
       rows.cluster.row_net: P104
 
 outlines:
@@ -127,18 +126,18 @@ outlines:
     - what: rectangle
       where: true
       bound: false
-      size: [kx-0.5,ky-0.5]
+      size: [kx-0.5, ky-0.5]
   mcu:
     - what: rectangle
       where:
-          ref: matrix_inner_top
-          shift: [19, 10]
+        ref: matrix_inner_top
+        shift: [19, 10]
       size: [18, 34]
   screen:
     - what: rectangle
       where:
-          ref: matrix_inner_top
-          shift: [19,10]
+        ref: matrix_inner_top
+        shift: [19, 10]
       size: [14, 36]
   combo:
     - name: board
@@ -164,7 +163,7 @@ outlines:
       radius: screwSize
       where:
         ref: matrix_inner2_bottom
-        shift: [16, -12]
+        shift: [16, -12] # TODO not lining up
   standoff:
     - name: mounting
       operation: stack
@@ -185,9 +184,7 @@ outlines:
 
 pcbs: # TODO add keycap outlines?
   sweeppp:
-    outlines:
-      main:
-        outline: board
+    outlines.main.outline: board
     footprints:
       choc_hotswap:
         what: choc
@@ -204,26 +201,24 @@ pcbs: # TODO add keycap outlines?
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
-        adjust:
-          shift: [0, -5]
+        adjust.shift: [0, -5]
       nice_nano:
         what: nice_nano
-        params:
-          orientation: up
+        params.orientation: up
         where:
           ref: matrix_inner_top
-          shift: [19,10]
+          shift: [19, 10]
           rotate: -90
       nice_view:
         what: nice_view
         params:
           side: F
-          SDA: P017       # can be on any high frequency pin
-          SCL: P020       # can be on any high frequency pin
+          SDA: P017 # can be on any high frequency pin
+          SCL: P020 # can be on any high frequency pin
           CS: P002
         where:
           ref: matrix_inner_top
-          shift: [19,-8]
+          shift: [19, -8]
           rotate: 90
       reset:
         what: button
@@ -244,7 +239,7 @@ pcbs: # TODO add keycap outlines?
           from: RAW
           to: BAT
       # TODO which orientation should this be in?
-      jstph:  # this may not be needed
+      jstph: # this may not be needed
         what: jstph
         where:
           ref: matrix_middle_bottom
@@ -273,7 +268,7 @@ pcbs: # TODO add keycap outlines?
         what: mountinghole
         where:
           ref: matrix_inner2_bottom
-          shift: [16, -12]
+          shift: [16, -12] # TODO not lining up
 
 cases:
   _bottom:
@@ -314,7 +309,7 @@ cases:
     - what: case
       name: _wall
       operation: add
-  # TODO can I cover the mcu but show the screen?
+  # TODO space cut out for screen but may need to be higher?
   caseTop:
     - name: topCutout
       extrude: 1
