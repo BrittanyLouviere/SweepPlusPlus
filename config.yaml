@@ -207,20 +207,19 @@ pcbs: # TODO add keycap outlines?
         params.reversible: True
         where:
           ref: matrix_inner_top
-          shift: [19, 11]
-          #rotate: -90
+          shift: [19, 13]
       nice_view:
-        what: nice_view
+        what: display_nice_view
         params:
-          side: F
-          SDA: P2 # can be on any high frequency pin
-          SCL: P3 # can be on any high frequency pin
+          reversible: true
+          invert_jumpers_position: true
+          MOSI: P2 # SDA can be on any high frequency pin
+          SCK: P3 # SCL can be on any high frequency pin
           CS: P4
         where:
           ref: matrix_inner_top
-          shift: [19, -8]
-          rotate: 90
-      reset:
+          shift: [19, 11]
+      reset:  # TODO make reversible
         what: button
         params:
           from: GND
@@ -229,7 +228,7 @@ pcbs: # TODO add keycap outlines?
           ref: matrix_inner_num
           shift: [0, 12]
           rotate: -6.7
-      powerSwitch:
+      powerSwitch:  # TODO make reversible
         what: slider
         where:
           ref: matrix_index_num
