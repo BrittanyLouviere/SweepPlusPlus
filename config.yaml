@@ -182,7 +182,7 @@ outlines:
     - operation: subtract
       name: screen
 
-pcbs: # TODO add keycap outlines?
+pcbs:
   sweeppp:
     outlines.main.outline: board
     footprints:
@@ -219,34 +219,35 @@ pcbs: # TODO add keycap outlines?
         where:
           ref: matrix_inner_top
           shift: [19, 11]
-      reset:  # TODO make reversible
-        what: button
+      reset:
+        what: reset_switch_smd_side
         params:
           from: GND
           to: RST
+          reversible: true
         where:
           ref: matrix_inner_num
-          shift: [0, 12]
+          shift: [-4, 13]
           rotate: -6.7
-      powerSwitch:  # TODO make reversible
-        what: slider
+      powerSwitch:
+        what: power_switch_smd_side
         where:
           ref: matrix_index_num
           shift: [0, 12]
-          rotate: -6.7
+          rotate: 83.3
         params:
           from: RAW
           to: BAT
-      # TODO which orientation should this be in?
-      jstph: # this may not be needed
-        what: jstph
+          reversible: true
+      jstph:
+        what: battery_connector_jst_ph_2
         where:
           ref: matrix_middle_bottom
-          shift: [0, -11]
-          #rotate: 180
+          shift: [4, -11]
         params:
-          pos: BAT
-          neg: GND
+          reversible: true
+          include_courtyard: true
+
       # Mounting Holes
       holeTopLeft:
         what: mountinghole
