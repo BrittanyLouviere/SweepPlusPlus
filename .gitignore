@@ -1,2 +1,6 @@
 
 /.vscode
+output/pcbs/~sweeppp.kicad_pcb.lck
+output/pcbs/fp-info-cache
+output/pcbs/sweeppp.kicad_prl
+output/pcbs/sweeppp.kicad_pro
