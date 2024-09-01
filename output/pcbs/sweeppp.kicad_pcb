@@ -172,10 +172,9 @@
 (net 77 "DISP1_2")
 (net 78 "DISP1_4")
 (net 79 "DISP1_5")
-(net 80 "BAT")
-(net 81 "BAT_P")
-(net 82 "JST1_1")
-(net 83 "JST1_2")
+(net 80 "BAT_P")
+(net 81 "JST1_1")
+(net 82 "JST1_2")
 
   (net_class Default "This is the default net class."
     (clearance 0.2)
@@ -264,7 +263,6 @@
 (add_net "DISP1_2")
 (add_net "DISP1_4")
 (add_net "DISP1_5")
-(add_net "BAT")
 (add_net "BAT_P")
 (add_net "JST1_1")
 (add_net "JST1_2")
@@ -4455,8 +4453,8 @@
     (pad "" smd rect (at -1.085 3.65 173.3) (size 1 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
     (pad "" smd rect (at 1.125 3.65 173.3) (size 1 0.8) (layers "F.Cu" "F.Paste" "F.Mask"))
     (pad "1" smd rect (at -1.735 2.25 173.3) (size 0.7 1.5) (layers "F.Cu" "F.Paste" "F.Mask") )
-    (pad "2" smd rect (at -1.735 -0.75 173.3) (size 0.7 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (net 80 "BAT"))
-    (pad "3" smd rect (at -1.735 -2.25 173.3) (size 0.7 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (net 38 "RAW"))
+    (pad "2" smd rect (at -1.735 -0.75 173.3) (size 0.7 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (net 38 "RAW"))
+    (pad "3" smd rect (at -1.735 -2.25 173.3) (size 0.7 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (net 80 "BAT_P"))
     
     (fp_text user "ON" (at 0 -5 83.3) (layer "F.SilkS")
       (effects (font (size 1 1) (thickness 0.15)))
@@ -4484,8 +4482,8 @@
     (pad "" smd rect (at 1.125 -3.65 353.3) (size 1 0.8) (layers "B.Cu" "B.Paste" "B.Mask"))
     (pad "" smd rect (at -1.085 3.65 353.3) (size 1 0.8) (layers "B.Cu" "B.Paste" "B.Mask"))
     (pad "" smd rect (at 1.125 3.65 353.3) (size 1 0.8) (layers "B.Cu" "B.Paste" "B.Mask"))
-    (pad "1" smd rect (at -1.735 -2.25 353.3) (size 0.7 1.5) (layers "B.Cu" "B.Paste" "B.Mask") (net 38 "RAW"))
-    (pad "2" smd rect (at -1.735 0.75 353.3) (size 0.7 1.5) (layers "B.Cu" "B.Paste" "B.Mask") (net 80 "BAT"))
+    (pad "1" smd rect (at -1.735 -2.25 353.3) (size 0.7 1.5) (layers "B.Cu" "B.Paste" "B.Mask") (net 80 "BAT_P"))
+    (pad "2" smd rect (at -1.735 0.75 353.3) (size 0.7 1.5) (layers "B.Cu" "B.Paste" "B.Mask") (net 38 "RAW"))
     (pad "3" smd rect (at -1.735 2.25 353.3) (size 0.7 1.5) (layers "B.Cu" "B.Paste" "B.Mask") )
     
     (fp_text user "PWR1" (at -3.5 0 173.3) (layer "B.SilkS") hide
@@ -4510,9 +4508,9 @@
 
     (footprint "ceoloide:battery_connector_jst_ph_2"
         (layer "F.Cu")
-        (at 140 93.5 0)
+        (at 139 111.5 -90)
         (property "Reference" "JST1"
-            (at 0 4.8 0)
+            (at 0 4.8 -90)
             (layer "F.SilkS")
             hide
             (effects (font (size 1 1) (thickness 0.15)))
@@ -4570,9 +4568,9 @@
         (fp_line (start 2.14 6.36) (end 3.06 6.36) (stroke (width 0.12) (type solid)) (layer "B.SilkS"))
         (fp_line (start 3.06 6.36) (end 3.06 5.36) (stroke (width 0.12) (type solid)) (layer "B.SilkS"))
         
-        (pad "11" thru_hole oval (at -1 0 0) (size 1.2 1.75) (drill 0.75) (layers "*.Cu" "*.Mask") (net 82 "JST1_1"))
-        (pad "12" thru_hole oval (at 1 0 0) (size 1.2 1.75) (drill 0.75) (layers "*.Cu" "*.Mask") (net 83 "JST1_2"))
-        (pad "21" smd custom (at -1 1.8 180) (size 0.1 0.1) (layers "F.Cu" "F.Mask" "F.Paste")
+        (pad "11" thru_hole oval (at -1 0 -90) (size 1.2 1.75) (drill 0.75) (layers "*.Cu" "*.Mask") (net 81 "JST1_1"))
+        (pad "12" thru_hole oval (at 1 0 -90) (size 1.2 1.75) (drill 0.75) (layers "*.Cu" "*.Mask") (net 82 "JST1_2"))
+        (pad "21" smd custom (at -1 1.8 90) (size 0.1 0.1) (layers "F.Cu" "F.Mask" "F.Paste")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4588,9 +4586,9 @@
                     (fill yes)
                 )
             )
-            (net 82 "JST1_1")
+            (net 81 "JST1_1")
         )
-        (pad "31" smd custom (at -1 1.8 180) (size 0.1 0.1) (layers "B.Cu" "B.Mask" "B.Paste")
+        (pad "31" smd custom (at -1 1.8 90) (size 0.1 0.1) (layers "B.Cu" "B.Mask" "B.Paste")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4606,9 +4604,9 @@
                     (fill yes)
                 )
             )
-            (net 82 "JST1_1")
+            (net 81 "JST1_1")
         )
-        (pad "22" smd custom (at 1 1.8 180) (size 0.1 0.1) (layers "F.Cu" "F.Mask" "F.Paste")
+        (pad "22" smd custom (at 1 1.8 90) (size 0.1 0.1) (layers "F.Cu" "F.Mask" "F.Paste")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4624,9 +4622,9 @@
                     (fill yes)
                 )
             )
-            (net 83 "JST1_2")
+            (net 82 "JST1_2")
         )
-        (pad "32" smd custom (at 1 1.8 180) (size 0.1 0.1) (layers "B.Cu" "B.Mask" "B.Paste")
+        (pad "32" smd custom (at 1 1.8 90) (size 0.1 0.1) (layers "B.Cu" "B.Mask" "B.Paste")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4642,9 +4640,9 @@
                     (fill yes)
                 )
             )
-            (net 83 "JST1_2")
+            (net 82 "JST1_2")
         )
-        (pad "1" smd custom (at -1 2.816 180) (size 1.2 0.5) (layers "F.Cu" "F.Mask" "F.Paste") (net 81 "BAT_P")
+        (pad "1" smd custom (at -1 2.816 90) (size 1.2 0.5) (layers "F.Cu" "F.Mask" "F.Paste") (net 80 "BAT_P")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4661,7 +4659,7 @@
                 )
             )
         )
-        (pad "1" smd custom (at 1 2.816 180) (size 1.2 0.5) (layers "B.Cu" "B.Mask" "B.Paste") (net 81 "BAT_P")
+        (pad "1" smd custom (at 1 2.816 90) (size 1.2 0.5) (layers "B.Cu" "B.Mask" "B.Paste") (net 80 "BAT_P")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4678,7 +4676,7 @@
                 )
             )
         )
-        (pad "2" smd custom (at -1 2.816 180) (size 1.2 0.5) (layers "B.Cu" "B.Mask" "B.Paste") (net 39 "GND")
+        (pad "2" smd custom (at -1 2.816 90) (size 1.2 0.5) (layers "B.Cu" "B.Mask" "B.Paste") (net 39 "GND")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4695,7 +4693,7 @@
                 )
             )
         )
-        (pad "2" smd custom (at 1 2.816 180) (size 1.2 0.5) (layers "F.Cu" "F.Mask" "F.Paste") (net 39 "GND")
+        (pad "2" smd custom (at 1 2.816 90) (size 1.2 0.5) (layers "F.Cu" "F.Mask" "F.Paste") (net 39 "GND")
             (clearance 0.1) (zone_connect 0)
             (options (clearance outline) (anchor rect))
             (primitives
@@ -4715,10 +4713,10 @@
         
     )
          
-    (segment (start 139 95.3) (end 139 93.5) (width 0.25) (layer "F.Cu") (net 82))
-    (segment (start 139 95.3) (end 139 93.5) (width 0.25) (layer "B.Cu") (net 82))
-    (segment (start 141 95.3) (end 141 93.5) (width 0.25) (layer "F.Cu") (net 83))
-    (segment (start 141 95.3) (end 141 93.5) (width 0.25) (layer "B.Cu") (net 83))
+    (segment (start 137.2 110.5) (end 139 110.5) (width 0.25) (layer "F.Cu") (net 81))
+    (segment (start 137.2 110.5) (end 139 110.5) (width 0.25) (layer "B.Cu") (net 81))
+    (segment (start 137.2 112.5) (end 139 112.5) (width 0.25) (layer "F.Cu") (net 82))
+    (segment (start 137.2 112.5) (end 139 112.5) (width 0.25) (layer "B.Cu") (net 82))
         
 
     (module "MountingHole_2.2mm_M2_Pad_Via" (version 20210722) (generator pcbnew) (layer "F.Cu")

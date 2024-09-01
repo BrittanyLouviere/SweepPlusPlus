@@ -221,10 +221,7 @@ pcbs:
           shift: [19, 11]
       reset:
         what: reset_switch_smd_side
-        params:
-          from: GND
-          to: RST
-          reversible: true
+        params.reversible: true
         where:
           ref: matrix_inner_num
           shift: [-4, 13]
@@ -235,15 +232,13 @@ pcbs:
           ref: matrix_index_num
           shift: [0, 12]
           rotate: 83.3
-        params:
-          from: RAW
-          to: BAT
-          reversible: true
-      jstph:
+        params.reversible: true
+      jstph: # battery is 12x30mm
         what: battery_connector_jst_ph_2
         where:
-          ref: matrix_middle_bottom
-          shift: [4, -11]
+          ref: thumbs_outer2_cluster
+          shift: [-15, -4]
+          rotate: -90
         params:
           reversible: true
           include_courtyard: true
