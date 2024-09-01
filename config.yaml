@@ -163,7 +163,7 @@ outlines:
       radius: screwSize
       where:
         ref: matrix_inner2_bottom
-        shift: [16, -12] # TODO not lining up
+        shift: [16, -12]
   standoff:
     - name: mounting
       operation: stack
@@ -263,7 +263,7 @@ pcbs:
         what: mountinghole
         where:
           ref: matrix_inner2_bottom
-          shift: [16, -12] # TODO not lining up
+          shift: [16, -12]
 
 cases:
   _bottom:
