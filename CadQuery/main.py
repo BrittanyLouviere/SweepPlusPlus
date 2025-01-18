@@ -1,5 +1,30 @@
 import cadquery as cq
 
+def pcb():
+    return  (
+        cq.importers
+        .importStep("sweeppp.step")
+        # .translate((-90.75, 103, -5))
+        .translate((-97.6, 96.9, -5))
+    )
+
+def r(pntList, length: float, width: float, angle: float):
+    return (
+        cq.Workplane()
+        .pushPoints(pntList)
+        .eachpoint(
+            cq
+            .Workplane()
+            # .polarLine(squareSize, 0)
+            # .polarLine(squareSize, 90)
+            # .polarLine(squareSize, 180)
+            # .close()
+            # .extrude(2)
+            .box(length, width, 5)
+            .rotate((0, 0, 0), (0, 0, 1),  angle)
+        )
+    )
+
 # height and width of switch holes
 sw = 13.8
 # height and width of keys
@@ -10,12 +35,6 @@ px = kx #+ 4
 py = ky #+ 4
 
 screwSize = 1.5
-
-pcb = (
-    cq.importers
-    .importStep("sweeppp.step")
-    .translate((-97.6, 96.9, -5))
-)
 
 key_points = [
     (px*0, py*0),
@@ -38,7 +57,7 @@ key_points = [
     (px*3, py*2 +12.5),
     (px*3, py*3 +12.5),
 
-    (px*4, py*0 +12.5-3),
+    (px*4, py*0 +12.5-3), # anchor
     (px*4, py*1 +12.5-3),
     (px*4, py*2 +12.5-3),
     (px*4, py*3 +12.5-3),
@@ -48,52 +67,28 @@ key_points = [
 
     (px*3, py*-1 +12.5-3),
     (px*4, py*-1 +12.5-3),
-    # (px*5 +3, py*-1 +12.5-5),
-    # (px*6 +6, py*-1 +12.5-6),
 ]
 
-thumb1 = (
-    cq.Workplane()
-    # .pushPoints([(px*5 +2.5, py*-1 +12.5-5.5)])
-    .pushPoints([(px*5 +3, py*-1 +12.5-3-2)])
-    .box(sw, sw, 5)
-    # .rotate('<X<Y<Z', '<X>Y<Z', -15)
-    # .rotate((kx/2, ky/2, 0), (kx/2, ky/2, 1), -15)
-)
+color = cq.Color(1, 1, 0.5, 0.1)
 
-rotationStart = (
-    thumb1
-    .vertices('<X').vertices('<Y').vertices('<Z')
-    .objects[0]
-    .Center()
-)
+# anchor (px*4, py*0 +12.5-3)
 
-rotationEnd = (
-    thumb1
-    .vertices('<X').vertices('>Y').vertices('<Z')
-    .objects[0]
-    .Center()
-)
+# thumb1 = [(px*4, py*0 +12.5-3)]
+# thumb1 = [(px*5, py*-1 +12.5-3)]
+# thumb1 = [(px*5 +1, py*-1 +12.5-3 -1)]
+thumb1 = [(px*5 +3, py*-1 +12.5-3 -2)]
 
-# TODO how does rotate work??????
-thumb1 = (
-    thumb1
-    .rotate(rotationStart, rotationEnd, -15)
-)
+# thumb2 = [(px*4, py*0 +12.5-3)]
+# thumb2 = [(px*6, py*-1 +12.5-3)]
+# thumb2 = [(px*6 +1, py*-1 +12.5 -8)]
+# thumb2 = [(px*6 +6, py*-1 +12.5 -3)]
+# thumb2 = [(px*6 +9, py*-1 +12.5 -5)]
+thumb2 = [(px*6 +4, py*-1 +12.5-3 -9)]
 
-r = (
-    cq.Workplane()
-    .pushPoints(key_points)
-    .box(sw, sw, 5)
-    .add(thumb1)
-    .add(
-        cq.Workplane()
-        # .pushPoints([(px*6 +6, py*-1 -3)])
-        .pushPoints([(px*6 +6, py*-1 +12.5-3-3)])
-        .box(sw, sw, 5)
-        .rotateAboutCenter((0, 0, 1), -30)
-    )
-
-    # .objects[0]
-    # .scale(0.85)
+c = (
+    cq.Assembly()
+    .add(pcb())
+    .add(r(key_points, kx, ky, 0), color=color)
+    .add(r(thumb1, kx, ky, -15), color=color)
+    .add(r(thumb2, kx, ky, -30), color=color)
 )
