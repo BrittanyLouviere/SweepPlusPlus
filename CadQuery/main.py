@@ -1,81 +1,141 @@
 import cadquery as cq
+import yaml
 
-def pcb():
-    return  (
-        cq.importers
-        .importStep("sweeppp.step")
-        .translate((-97.6, 96.9, -5))
-    )
+config = """
+units:
+  # default unit is mm
 
-def pointToBox(pntList, length: float, width: float, angle: float):
-    return (
-        cq.Workplane()
-        .pushPoints(pntList)
-        .eachpoint(
-            cq
-            .Workplane()
-            .box(length, width, 5)
-            .rotate((0, 0, 0), (0, 0, 1),  angle)
-        )
-    )
+  # Proxy Spacing Variables
+  # Kailh Choc keys are 18mm wide and 17mm tall
+  kx: cx
+  ky: cy
+  $default_width: cx
+  $default_height: cy
 
-# height and width of switch holes
-sw = 13.8
-# height and width of keys
+  # Cherry MX keys are 19mm x 19mm
+  #kx: u
+  #ky: u
+
+  # Padding Variables
+  px: kx + 4
+  py: ky + 4
+
+  # Defaults to M2 screws
+  screwSize: 1.5
+
+points:
+  zones:
+    matrix:
+      # Fix placement on KiCAD sheet.
+      anchor:
+        shift: [100, -100]
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        pinky:
+          key:
+            column_net: P20
+        ring:
+          key:
+            stagger: 12.5
+            column_net: P19
+        middle:
+          key:
+            stagger: 5
+            column_net: P18
+        index:
+          key:
+            stagger: -5
+            column_net: P15
+        inner:
+          key:
+            stagger: -3
+            column_net: P10
+        inner2:
+          rows:
+            top:
+              skip: true
+            num:
+              skip: true
+          key:
+            column_net: P9
+            spread: 1kx + 1
+      rows:
+        bottom:
+          row_net: P7
+        home:
+          row_net: P8
+        top:
+          row_net: P16
+        num:
+          row_net: P21
+    thumbs:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-1kx, -1ky]
+      columns:
+        outer2:
+          key:
+            column_net: P18
+        outer:
+          key:
+            column_net: P15
+        home:
+          key:
+            splay: -15
+            shift: [3, -2]
+            column_net: P10
+        inner:
+          key:
+            splay: -15
+            shift: [6, -3]
+            column_net: P9
+      rows:
+        cluster:
+          row_net: P6
+"""
+
+yaml = yaml.load(config, Loader=yaml.SafeLoader)
+
 kx = 18
 ky = 17
-# above with padding
-px = kx #+ 4
-py = ky #+ 4
 
-screwSize = 1.5
+px = kx + 4
+py = ky + 4
 
-color = cq.Color(1, 1, 0.5, 0.1)
+padding: float = ky
+spread: float = kx
 
-key_points = []
+keys = cq.Workplane()
+key_anchors = {}
 
-# matrix
-stagger = 0
-spread = 0
-for column in range(6):
-    stagger += {
-        0: 0,
-        1: 12.5,
-        2: 5,
-        3: -5,
-        4: -3,
-        5: 0
-    }[column]
+for zoneName, zone in yaml['points']['zones'].items():
+    rows = zone['rows'].keys()
+    stagger = 0
 
-    for row in range(4):
-        if column == 5 and row > 1: continue
-        if column == 5: spread = 1
-        key_points.append((px*column + spread, py*row + stagger))
-
-# thumbs
-key_points.append((px*3, py*-1 +12.5-3))
-key_points.append((px*4, py*-1 +12.5-3))
-
-# anchor (px*4, py*0 +12.5-3)
-
-# thumb1 = [(px*4, py*0 +12.5-3)]
-# thumb1 = [(px*5, py*-1 +12.5-3)]
-# thumb1 = [(px*5 +1, py*-1 +12.5-3 -1)]
-thumb1 = [(px*5 +3, py*-1 +12.5-3 -2)]
-
-# thumb2 = [(px*4, py*0 +12.5-3)]
-# thumb2 = [(px*6, py*-1 +12.5-3)]
-# thumb2 = [(px*6 +1, py*-1 +12.5 -8)]
-# thumb2 = [(px*6 +6, py*-1 +12.5 -3)]
-# thumb2 = [(px*6 +9, py*-1 +12.5 -5)]
-thumb2 = [(px*6 +4, py*-1 +12.5-3 -9)]
-
-c = (
-    cq.Assembly()
-    .add(pcb())
-    .add(pointToBox(key_points, kx, ky, 0), color=color)
-    .add(pointToBox(thumb1, kx, ky, -15), color=color)
-    .add(pointToBox(thumb2, kx, ky, -30), color=color)
-)
-
-result = cq.Assembly().add(pcb())
+    if 'anchor' in zone:
+        if 'ref' in zone['anchor']:
+            point = key_anchors[zone['anchor']['ref']]
+            keys = keys.center(point[0]-kx, point[1]-ky)  # TODO hardcoded for now
+    c = 0
+    for columnName, column in zone['columns'].items():
+        stagger += column['key']['stagger'] if 'stagger' in column['key'] else 0
+        col_rows = column['rows'] if 'rows' in column else {}
+        shift = column['key']['shift'] if 'shift' in column['key'] else [0,0]
+        splay = column['key']['splay'] if 'splay' in column['key'] else 0
+        r = 0
+        for row in rows:
+            if row in col_rows: continue
+            point = (spread*c + shift[0], padding*r + stagger + shift[1])
+            keys = (
+                keys.workplane()
+                .pushPoints([point])
+                .box(kx-1, ky-1, 5)
+            )
+            key_anchors[f"{zoneName}_{columnName}_{row}"] = point
+            r += 1
+        c += 1
